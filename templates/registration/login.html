@@ -1,0 +1,159 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="#" type="image/x-icon"> <!--Provide your company logo-->
+    <link rel="stylesheet" href="{% static 'login_styling/style.css' %}" />
+    <title>
+      {% if user.is_authenticated %}
+      You have already logged in
+      {% else %}
+      Company Name
+      {% endif %}
+    </title>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg bg-white border shadow-lg p-3 mb-5 bg-body rounded">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}">Brand Name</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Add any_other Navbar.</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <div class="ml-auto">
+      <h2>You have already logged in...!</h2>
+    </div> 
+    {% else %}
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <!-- SIGN UP -->
+          <form class="sign-up-form" method="POST" action="{% url 'sign_up' %}">
+            {% csrf_token %}
+            {% if form.errors %}
+            <p>Your username and password didn't match.
+              Please try again.</p>
+            {% endif %}
+            <h2 class="title">Sign up</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Username" id="username" name="username"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email" id="email" name="email"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" id="password1" name="password1"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Retype Password" id="password2" name="password2"/>
+            </div>
+            <input type="submit" class="btn" value="Sign up" />
+            <p class="social-text">Or Sign up with social platforms</p>
+            <div class="social-media">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </form>
+
+
+
+          <!-- SIGN IN -->
+          <form class="sign-in-form" method="POST" action="{% url 'login' %}">
+            {% csrf_token  %}
+            <h2 class="title">Sign in</h2>
+            {% if form.errors %}
+            <p>{{message}}</p>
+            {% endif %}
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Username" id="username" name="username" required/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" id="password" name="password" required/>
+            </div>
+            <input type="submit" value="Login" class="btn solid"/>
+            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+            <p class="social-text">Or Sign in with social platforms</p>
+            <div class="social-media"> <!--You can specify if any links to go with social login-->
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>New here ?</h3>
+            <p>
+              Small Description for a New User....!
+            </p>
+            <button class="btn transparent" id="sign-up-btn">
+              Sign up
+            </button>
+          </div>
+          <img src="{% static 'login_styling/img/log.svg' %}" class="image" alt="logo svg" />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>One of us ?</h3>
+            <p>
+              Samll Message to the Users who are using it already.....!
+            </p>
+            <button class="btn transparent" id="sign-in-btn">
+              Sign in
+            </button>
+          </div>
+          <img src="{% static 'login_styling/img/register.svg' %}" class="image" alt="register svg" />
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <script src="{% static 'login_styling/app.js' %}"></script>
+  </body>
+</html>
