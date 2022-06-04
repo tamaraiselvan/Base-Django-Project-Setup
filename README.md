@@ -60,8 +60,8 @@ Follow these steps to make project run locally
    python manage.py runserver
    ```
 8. Open your browser and type
-    ```sh
-  http://127.0.0.1:8000/
+   ```sh
+   http://127.0.0.1:8000/
    ```
 
 ## Conclusion
