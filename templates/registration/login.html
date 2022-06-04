@@ -30,6 +30,9 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="#">Add any_other Navbar.</a>
               </li>
               <li class="nav-item">
@@ -49,11 +52,10 @@
           <!-- SIGN UP -->
           <form class="sign-up-form" method="POST" action="{% url 'sign_up' %}">
             {% csrf_token %}
-            {% if form.errors %}
-            <p>Your username and password didn't match.
-              Please try again.</p>
-            {% endif %}
             <h2 class="title">Sign up</h2>
+            {% if form.errors %}
+            <p style="color: red;">Please Fill the details correctly.</p>
+            {% endif %}
             <div class="input-field">
               <i class="fas fa-user"></i>
               <input type="text" placeholder="Username" id="username" name="username"/>
@@ -95,7 +97,7 @@
             {% csrf_token  %}
             <h2 class="title">Sign in</h2>
             {% if form.errors %}
-            <p>{{message}}</p>
+            <p style="color: red;">Please check your login credentials.</p>
             {% endif %}
             <div class="input-field">
               <i class="fas fa-user"></i>
