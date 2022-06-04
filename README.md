@@ -63,5 +63,3 @@ Follow these steps to make project run locally
    ```sh
    http://127.0.0.1:8000/
    ```
-
-## Conclusion
