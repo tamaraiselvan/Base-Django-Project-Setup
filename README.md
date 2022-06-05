@@ -21,11 +21,11 @@ Project is created with:
 * Django 4.0
 
 ### Features
-1> Authentication, Authorization
-2> Overwritten Django admin module
-3> Login and Sign up
-4> A basic page and basic Navigation system.
-5> A good and Mobile friendly User Interface.
+1> Authentication, Authorization <br>
+2> Overwritten Django admin module <br>
+3> Login and Sign up<br>
+4> A basic page and basic Navigation system.<br>
+5> A good and Mobile friendly User Interface.<br>
 
 ## Setup
 
