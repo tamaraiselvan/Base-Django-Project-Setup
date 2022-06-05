@@ -33,7 +33,7 @@ Follow these steps to make project run locally
 
 1. Clone the repository
    ```sh
-   git clone https://github.com/The-Code-of-Duty-Team/Examination-project.git
+   git clone https://github.com/tamaraiselvan/Base-django-project-Setup
    ```
 2. Create a virtual environment
    ```sh
