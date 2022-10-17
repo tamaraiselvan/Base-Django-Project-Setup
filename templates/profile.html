@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block pagetitle %}Profile{% endblock %}
+{% load static %}
+{% block content %}
+<main class="pt-3">
+    <article class="container article">
+        <h2 class="h2 article-title">Profile Section</h2>
+        <section class="projects">
+            <div class="card profile-card">
+
+                <button class="card-menu-btn icon-box" aria-label="More" data-menu-btn>
+                  <span class="material-symbols-rounded  icon">more_horiz</span>
+                </button>
+      
+                <ul class="ctx-menu">
+      
+                  <li class="ctx-item">
+                    <button class="ctx-menu-btn icon-box">
+                      <span class="material-symbols-rounded  icon" aria-hidden="true">edit</span>
+      
+                      <span class="ctx-menu-text">Edit</span>
+                    </button>
+                  </li>
+      
+                  <li class="ctx-item">
+                    <button class="ctx-menu-btn icon-box">
+                      <span class="material-symbols-rounded  icon" aria-hidden="true">cached</span>
+      
+                      <span onClick="document.location.reload(true)" class="ctx-menu-text">Refresh</span>
+                    </button>
+                  </li>
+      
+                  <li class="divider"></li>
+      
+                  <li class="ctx-item">
+                    <button class="ctx-menu-btn red icon-box">
+                      <span class="material-symbols-rounded  icon" aria-hidden="true">delete</span>
+      
+                      <span class="ctx-menu-text">Deactivate</span>
+                    </button>
+                  </li>
+      
+                </ul>
+      
+                <div class="profile-card-wrapper">
+      
+                  <figure class="card-avatar">
+                    <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="{{user.get_full_name}}" width="48" height="48">
+                  </figure>
+      
+                  <div>
+                    <p class="card-title">{{user.get_full_name}}</p>
+      
+                    <p class="card-subtitle">
+                        {% if user.is_superuser %}
+                        <div class="contact-link icon-box">
+                            <span class="material-symbols-rounded  icon">verified_user</span>
+                        <p>Administrator</p>
+                        </div>
+                        
+                        {% elif user.is_staff %}
+                        <div class="contact-link icon-box">
+                            <span class="material-symbols-rounded  icon">badge</span>
+                        <p>Staff</p>
+                        </div>
+                        {% else %}
+                        <div class="contact-link icon-box">
+                            <span class="material-symbols-rounded  icon">badge</span>
+                        <p>User</p>
+                        </div>
+                        {% endif %}
+                    </p>
+                  </div>
+      
+                </div>
+      
+                <ul class="contact-list">
+
+                    <li>
+                        <div class="contact-link icon-box">
+                          <span class="material-symbols-rounded  icon">person_filled</span>
+          
+                          <p class="text">{{user.username}}</p>
+                        </div>
+                    </li>
+      
+                  <li>
+                    <a href="mailto:{{user.email}}" class="contact-link icon-box">
+                      <span class="material-symbols-rounded  icon">mail</span>
+      
+                      <p class="text">{{user.email}}</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <div class="contact-link icon-box">
+                        <span class="material-symbols-rounded icon">calendar_month</span>
+                        <p class="text">{{user.date_joined}}</p>
+                    </div>
+                  </li>
+      
+                </ul>
+      
+                <div class="divider card-divider"></div>
+      
+                <ul class="progress-list">
+      
+                  <li class="progress-item">
+      
+                    <div class="progress-label">
+                        <div class="contact-link icon-box">
+                            <span class="material-symbols-rounded icon">groups</span>
+                            <p class="text">Groups</p>
+                        </div>
+                    </div>
+                    <ol>
+                        {% for group in user.groups.all %}
+                        <li>{{ group.name }}</li>
+                        {% endfor %}
+                    </ol>
+                  </li>
+      
+                  <li class="progress-item">
+      
+                    <div class="progress-label">
+                      <p class="progress-title">Change Password: </p>
+      
+                      <a href="{% url 'password_change' %}">Click here</a>
+                    </div>
+                  </li>
+      
+                </ul>
+      
+            </div>
+        </section>
+    </article>
+</main>
+{% endblock %}

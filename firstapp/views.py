@@ -22,3 +22,15 @@ def signup_view(request):
         form = SignUpForm()
     return render(request, 'registration/login.html', {'form': form})
 
+def profile(request):
+    return render(request, 'profile.html')
+
+def deactivate(request):
+    if request.user.is_authenticated:
+
+        return render(request, 'home.html')
+    else:
+        return redirect(home)
+
+
+    
