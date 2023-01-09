@@ -1,269 +1,97 @@
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" href="#" type="image/x-icon"> <!--Provide your company logo-->
-    <link rel="stylesheet" href="{% static 'login_styling/style.css' %}" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
-      {% if user.is_authenticated %}
-      You have already logged in
-      {% else %}
-      Company Name
-      {% endif %}
+        {% if user.is_authenticated %}
+        You have already logged in
+        {% else %}
+        Company Name
+        {% endif %}
     </title>
-
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap");
-* {
-  box-sizing: border-box;
-}
-
-.page-contain {
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  background: #E7F3F1;
-  border: 0.75em solid white;
-  padding: 2em;
-  font-family: "Open Sans", sans-serif;
-}
-
-.data-card {
-  display: flex;
-  flex-direction: column;
-  max-width: 20.75em;
-  min-height: 20.75em;
-  overflow: hidden;
-  border-radius: 0.5em;
-  text-decoration: none;
-  background: white;
-  margin: 1em;
-  padding: 2.75em 2.5em;
-  box-shadow: 0 1.5em 2.5em -0.5em rgba(0, 0, 0, 0.1);
-  transition: transform 0.45s ease, background 0.45s ease;
-}
-.data-card h3 {
-  color: #2E3C40;
-  font-size: 3.5em;
-  font-weight: 600;
-  line-height: 1;
-  padding-bottom: 0.5em;
-  margin: 0 0 0.142857143em;
-  border-bottom: 2px solid #753BBD;
-  transition: color 0.45s ease, border 0.45s ease;
-}
-.data-card h4 {
-  color: #627084;
-  text-transform: uppercase;
-  font-size: 1.125em;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.1em;
-  margin: 0 0 1.777777778em;
-  transition: color 0.45s ease;
-}
-.data-card p {
-  opacity: 0;
-  color: #FFFFFF;
-  font-weight: 600;
-  line-height: 1.8;
-  margin: 0 0 1.25em;
-  transform: translateY(-1em);
-  transition: opacity 0.45s ease, transform 0.5s ease;
-}
-.data-card .link-text {
-  display: block;
-  color: #753BBD;
-  font-size: 1.125em;
-  font-weight: 600;
-  line-height: 1.2;
-  margin: auto 0 0;
-  transition: color 0.45s ease;
-}
-.data-card .link-text svg {
-  margin-left: 0.5em;
-  transition: transform 0.6s ease;
-}
-.data-card .link-text svg path {
-  transition: fill 0.45s ease;
-}
-.data-card:hover {
-  background: #753BBD;
-  transform: scale(1.02);
-}
-.data-card:hover h3 {
-  color: #FFFFFF;
-  border-bottom-color: #A754C4;
-}
-.data-card:hover h4 {
-  color: #FFFFFF;
-}
-.data-card:hover p {
-  opacity: 1;
-  transform: none;
-}
-.data-card:hover .link-text {
-  color: #FFFFFF;
-}
-.data-card:hover .link-text svg {
-  -webkit-animation: point 1.25s infinite alternate;
-          animation: point 1.25s infinite alternate;
-}
-.data-card:hover .link-text svg path {
-  fill: #FFFFFF;
-}
-
-@-webkit-keyframes point {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(0.125em);
-  }
-}
-
-@keyframes point {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(0.125em);
-  }
-}
-    </style>
-  </head>
-  <body>
-    {% if user.is_authenticated %}
-    <section class="page-contain">
-      <a href="{% url 'home' %}" class="data-card">
-        <h3>Hi {{user.username}}</h3>
-        <h4>LogIn Successful</h4>
-        <p>Your LoggedIn Successfully....!</p>
-        <span class="link-text">
-          Go to Home Page..
-          <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#753BBD"/>
-    </svg>
-        </span>
-      </a>
-    </section>
-    <div class="ml-auto">
-      <h2>You have already logged in...!</h2>
-    </div> 
-    {% else %}
-    <div class="container">
-      <div class="forms-container">
-        <div class="signin-signup">
-          <!-- SIGN UP -->
-          <form class="sign-up-form" method="POST" action="{% url 'sign_up' %}">
-            {% csrf_token %}
-            <h2 class="title">Sign up</h2>
-            {% if form.errors %}
-            <p style="color: red;">Please Fill the details correctly.</p>
-            {% endif %}
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" id="username" name="username"/>
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'login_styling/loginstyle.css' %}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#" type="image/x-icon"> <!--Provide your company logo-->
+</head>
+<body style="overflow-y: hidden;">
+    <main>
+        {% if user.is_authenticated %}
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-center align-self-center">
+                <div class="card">
+                    <div class="card-header">
+                    Featured
+                    </div>
+                    <div class="card-body">
+                    <h5 class="card-title">Already Logged In</h5>
+                    <p class="card-text">You have already logged In.</p>
+                    <a href="#" class="btn btn-primary">Go to Dashboard</a>
+                    </div>
+                </div>
             </div>
-            <div class="input-field">
-              <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" id="email" name="email"/>
+        </div>
+        <script>
+            setTimeout("location.href = '{% url 'home' %}';",0);
+        </script>
+        {% else %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6 login-section-wrapper">
+            <div class="brand-wrapper">
+              <img src="https://www.bootstrapdash.com/demo/login-template-free-1/assets/images/logo.svg" alt="logo" class="logo">
             </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" id="password1" name="password1"/>
+            <div class="">
+              <h1 class="login-title">Log in</h1>
+              {% if form.errors %}
+              <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <p>Invalid Credentials. Retry again.</p>
+              </div>
+              {% endif %}
+              {% if messages %}
+                {% for message in messages %}
+                <div  class="alert {% if message.tags %} {{ message.tags }} {% endif %} alert-dismissable fade show"  role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <p>{{message}}</p>
+                </div>
+                {% endfor %}
+              {% endif %}
+              <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="username">Username:</label>
+                  <input type="username" name="username" id="username" class="form-control" placeholder="Enter your Username">
+                </div>
+                <div class="form-group mb-4">
+                  <label for="password">Password:</label>
+                  <input type="password" name="password" id="password" class="form-control" placeholder="Enter your passsword">
+                </div>
+                <button class="btn btn-outline-primary btn-block btn-lg" type="submit" name="Login" id="Login">Login In</button>
+              </form>
+              <a href="{% url 'password_reset' %}" class="forgot-password-link">Forgot password?</a>
+              <p class="login-wrapper-footer-text">Don't have an account? <a href="{% url 'sign_up' %}" class="text-reset">Register here</a></p>
             </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Retype Password" id="password2" name="password2"/>
-            </div>
-            <input type="submit" class="btn" value="Sign up" />
-            <p class="social-text">Or Sign up with social platforms</p>
-            <div class="social-media">
-              <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-          </form>
-
-
-
-          <!-- SIGN IN -->
-          <form class="sign-in-form" method="POST" action="{% url 'login' %}">
-            {% csrf_token  %}
-            <h2 class="title">Sign in</h2>
-            {% if form.errors %}
-            <p style="color: red;">Please check your login credentials.</p>
-            {% endif %}
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" id="username" name="username" required/>
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" id="password" name="password" required/>
-            </div>
-            <input type="submit" value="Login" class="btn solid"/>
-            <a href="{% url 'password_reset' %}">Forgot Password?</a>
-            <p class="social-text">Or Sign in with social platforms</p>
-            <div class="social-media"> <!--You can specify if any links to go with social login-->
-              <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-          </form>
+          </div>
+          <div class="col-sm-6 px-0 d-none d-sm-block">
+            <img src="https://www.bootstrapdash.com/demo/login-template-free-1/assets/images/login.jpg" alt="login image" class="login-img">
+          </div>
         </div>
       </div>
-
-      <div class="panels-container">
-        <div class="panel left-panel">
-          <div class="content">
-            <h3>New here ?</h3>
-            <p>
-              Small Description for a New User....!
-            </p>
-            <button class="btn transparent" id="sign-up-btn">
-              Sign up
-            </button>
-          </div>
-          <img src="{% static 'login_styling/img/log.svg' %}" class="image" alt="logo svg" />
-        </div>
-        <div class="panel right-panel">
-          <div class="content">
-            <h3>One of us ?</h3>
-            <p>
-              Samll Message to the Users who are using it already.....!
-            </p>
-            <button class="btn transparent" id="sign-in-btn">
-              Sign in
-            </button>
-          </div>
-          <img src="{% static 'login_styling/img/register.svg' %}" class="image" alt="register svg" />
-        </div>
-      </div>
-    </div>
-    {% endif %}
-    <script src="{% static 'login_styling/app.js' %}"></script>
-  </body>
+      {% endif %}
+    </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+  
+</body>
 </html>
