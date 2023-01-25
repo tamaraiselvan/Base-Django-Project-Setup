@@ -5,6 +5,14 @@
 <main class="pt-3">
     <article class="container article">
         <h2 class="h2 article-title">Profile Section</h2>
+        {% if messages %}
+          {% for message in messages %}
+              <div class="{{ message.tags }}">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{message}}
+              </div>
+          {% endfor %}
+        {% endif %}
         <section class="projects">
             <div class="card profile-card">
 
@@ -17,8 +25,9 @@
                   <li class="ctx-item">
                     <button class="ctx-menu-btn icon-box">
                       <span class="material-symbols-rounded  icon" aria-hidden="true">edit</span>
-      
-                      <span class="ctx-menu-text">Edit</span>
+                      {% for x in lst %}
+                      <span class="ctx-menu-text"><a href="/update/{{x.encrypt_key}}">Edit</a></span>
+                      {% endfor %}
                     </button>
                   </li>
       
