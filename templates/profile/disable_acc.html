@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block pagetitle %}Profile{% endblock %}
+{% load static %}
+{% block content %}
+<main class="pt-3">
+    <article class="container article">
+        <h2 class="h2 article-title">Deactivate Profile</h2>
+        <section class="projects">
+            <div class="card profile-card">
+                <form method="post">
+                    {% csrf_token %}
+                    <p style="color: red;">Are you sure you want to delete the account?</p>
+                    <p>Account Username: <b>{{request.user.username}}</b></p>
+
+                    <div class="divider card-divider"></div>
+                    <div class="d-grid gap-3 d-md-block">
+                        <button class="btn btn-outline-success" type="submit">Confirm</button>
+                        <a class="btn btn-outline-danger" href="{% url 'profile' %}">Cancel</a>
+                    </div>
+                 </form>
+            </div>
+        </section>
+    </article>
+</main>
+{% endblock %}
