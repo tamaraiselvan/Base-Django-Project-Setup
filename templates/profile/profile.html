@@ -2,132 +2,83 @@
 {% block pagetitle %}Profile{% endblock %}
 {% load static %}
 {% block content %}
-<main class="pt-3">
-  <article class="container article">
-    <h2 class="h2 article-title">Profile Section</h2>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="{{ message.tags }}">
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
       {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    {% endfor %}
-    {% endif %}
-    <section class="projects">
-      <div class="card profile-card">
-        <button class="card-menu-btn icon-box" aria-label="More" data-menu-btn>
-          <span class="material-symbols-rounded  icon">more_horiz</span>
-        </button>
+  {% endfor %}
+{% endif %}
 
-        <ul class="ctx-menu">
-          <li class="ctx-item">
-            <button class="ctx-menu-btn icon-box">
-              <span class="material-symbols-rounded  icon" aria-hidden="true">edit</span>
-              {% for x in lst %}
-              <span class="ctx-menu-text"><a href="/update/{{x.encrypt_key}}">Edit</a></span>
-              {% endfor %}
+
+<div class="card mb-3">
+  <div class="card-header">
+    <div class="container text-center">
+      <div class="row align-items-center">
+        <div class="col-auto me-auto text-align-center"><b>My Profile</b></div>
+        <div class="col-auto">
+          <div class="dropdown">
+            <button class="btn btn-{{color}} dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
             </button>
-          </li>
-
-          <li class="ctx-item">
-            <button class="ctx-menu-btn icon-box">
-              <span class="material-symbols-rounded  icon" aria-hidden="true">cached</span>
-              <span onClick="document.location.reload(true)" class="ctx-menu-text">Refresh</span>
-            </button>
-          </li>
-
-          <li class="divider"></li>
-          <li class="ctx-item">
-            <button class="ctx-menu-btn red icon-box">
-              <span class="material-symbols-rounded  icon" aria-hidden="true">delete</span>
-              {% for x in lst %}
-              <span class="ctx-menu-text"><a href="/disable/{{x.encrypt_key}}">Deactivate</a></span>
-              {% endfor %}
-            </button>
-          </li>
-        </ul>
-
-        <div class="profile-card-wrapper">
-          <figure class="card-avatar">
-            <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="{{user.get_full_name}}" width="48" height="48">
-          </figure>
-
-          <div>
-            <p class="card-title">{{user.get_full_name}}</p>
-            <p class="card-subtitle">
-              {% if user.is_superuser %}
-            <div class="contact-link icon-box">
-              <span class="material-symbols-rounded  icon">verified_user</span>
-              <p>Administrator</p>
-            </div>
-
-            {% elif user.is_staff %}
-            <div class="contact-link icon-box">
-              <span class="material-symbols-rounded  icon">badge</span>
-              <p>Staff</p>
-            </div>
-            {% else %}
-            <div class="contact-link icon-box">
-              <span class="material-symbols-rounded  icon">badge</span>
-              <p>User</p>
-            </div>
-            {% endif %}
-            </p>
+            <ul class="dropdown-menu">
+              <li>
+                {% for x in lst %}
+                <a class="dropdown-item" href="/update/{{x.encrypt_key}}"><i class="bi bi-pen"></i> Edit</a>
+                {% endfor %}
+              </li>
+              <li><a class="dropdown-item" onClick="document.location.reload(true)" href="#"><i class="bi bi-arrow-clockwise"></i> Refresh</a></li>
+              <li>
+                {% for x in lst %}
+                <a class="dropdown-item" href="/disable/{{x.encrypt_key}}"><i class="bi bi-trash"></i> Deactivate</a>
+                {% endfor %}
+              </li>
+            </ul>
           </div>
         </div>
-
-        <ul class="contact-list">
-          <li>
-            <div class="contact-link icon-box">
-              <span class="material-symbols-rounded  icon">person_filled</span>
-
-              <p class="text">{{user.username}}</p>
-            </div>
-          </li>
-
-          <li>
-            <a href="mailto:{{user.email}}" class="contact-link icon-box">
-              <span class="material-symbols-rounded  icon">mail</span>
-
-              <p class="text">{{user.email}}</p>
-            </a>
-          </li>
-
-          <li>
-            <div class="contact-link icon-box">
-              <span class="material-symbols-rounded icon">calendar_month</span>
-              <p class="text">{{user.date_joined}}</p>
-            </div>
-          </li>
-        </ul>
-
-        <div class="divider card-divider"></div>
-
-        <ul class="progress-list">
-          <li class="progress-item">
-            <div class="progress-label">
-              <div class="contact-link icon-box">
-                <span class="material-symbols-rounded icon">groups</span>
-                <p class="text">Groups</p>
-              </div>
-            </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-2">
+    <div class="col-md-3">
+      <img src="{% static 'profile_pic.png' %}" class="img-fluid rounded-start" alt="profile picture" style="height: 15rem; width: auto;">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{user.get_full_name}}</h5>
+        <p class="card-text">
+          {% if user.is_superuser %}
+          <i class="bi bi-person-fill-gear"></i> Administrator
+          {% elif user.is_staff %}
+          <i class="bi bi-person-check"></i> Staff
+          {% else %}
+          <i class="bi bi-person"></i> User
+          {% endif %}
+        </p>
+        <p class="card-text">
+          <b>Username: </b>{{user.username}} <br>
+          <b>Email: </b>{{user.email}}
+        </p>
+        <p class="card-text"><small class="text-muted">{{user.date_joined}}</small></p>
+      </div>
+      <div class="card-footer text-muted">
+        <div class="row">
+          <div class="col-auto me-auto">
+            Groups
             <ol>
               {% for group in user.groups.all %}
               <li>{{ group.name }}</li>
               {% endfor %}
             </ol>
-          </li>
-
-          <li class="progress-item">
-            <div class="progress-label">
-              <p class="progress-title">Change Password: </p>
-
-              <a href="{% url 'password_change' %}">Click here</a>
-            </div>
-          </li>
-        </ul>
+          </div>
+          <div class="col-auto">
+            Change password: <a href="{% url 'password_change' %}">Click here</a>
+          </div>
+        </div>
       </div>
-    </section>
-  </article>
-</main>
+    </div>
+  </div>
+</div>
 {% endblock %}

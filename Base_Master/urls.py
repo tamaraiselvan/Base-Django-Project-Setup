@@ -11,4 +11,5 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('update/<str:id>/', views.update, name="update"),
     path('disable/<str:id>/', views.disable_user, name="disable_user"),
+    path('theme', views.theme, name="theme"),
 ]

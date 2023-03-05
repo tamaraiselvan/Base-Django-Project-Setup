@@ -2,70 +2,60 @@
 {% block pagetitle %}Profile{% endblock %}
 {% load static %}
 {% block content %}
-<main class="pt-3">
-  <article class="container article">
-    <h2 class="h2 article-title">Update Profile</h2>
-    <section class="projects">
-      <div class="card profile-card">
-        <form method="post">
-          {% csrf_token %}
-          <div class="">
-            <figure class="card-avatar">
-              <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="{{user.get_full_name}}" width="48" height="48">
-            </figure>
-            <div>
-              <p class="card-subtitle">
-                {% if user.is_superuser %}
-              <div class="contact-link icon-box">
-                <span class="material-symbols-rounded  icon">verified_user</span>
-                <p>Administrator</p>
-              </div>
-
-              {% elif user.is_staff %}
-              <div class="contact-link icon-box">
-                <span class="material-symbols-rounded  icon">badge</span>
-                <p>Staff</p>
-              </div>
-              {% else %}
-              <div class="contact-link icon-box">
-                <span class="material-symbols-rounded  icon">badge</span>
-                <p>User</p>
-              </div>
-              {% endif %}
-              </p>
-              <div class="row">
-                <div class="col">
-                  <label for="first_name" class="form-label">First Name</label>
-                  {{form.first_name}}
-                </div>
-                <div class="col">
-                  <label for="last_name" class="form-label">Last Name</label>
-                  {{form.last_name}}
-                </div>
-              </div>
-            </div>
+<h2 class="h2 article-title">Update Profile</h2>
+<div class="card">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+        <div class="row align-items-center">
+          <div class="col-2">
+            <img src="{% static 'profile_pic.png' %}" alt="{{user.get_full_name}}" style="height: 9rem; width: auto;">
           </div>
+          <div class="col">
+            <p class="card-text"><b>Username: </b>{{user.username}}</p>
+            <p class="card-text">
+              {% if user.is_superuser %}
+              <i class="bi bi-person-fill-gear"></i> Administrator
+              {% elif user.is_staff %}
+              <i class="bi bi-person-check"></i> Staff
+              {% else %}
+              <i class="bi bi-person"></i> User
+              {% endif %}
+            </p>
+          </div>
+        </div>
 
+        <div>
           <div class="row">
             <div class="col">
-              <label for="username" class="form-label">Username</label>
-              {{form.username}}
+              <label for="first_name" class="form-label">First Name</label>
+              {{form.first_name}}
             </div>
             <div class="col">
-              <label for="last_name" class="form-label">Email</label>
-              {{form.email}}
+              <label for="last_name" class="form-label">Last Name</label>
+              {{form.last_name}}
             </div>
           </div>
+        </div>
 
-          <div class="divider card-divider"></div>
-          <div class="d-grid gap-3 d-md-block">
-            <button class="btn btn-outline-success" type="submit">Submit</button>
-            <button class="btn btn-outline-info" type="reset">Reset</button>
-            <a class="btn btn-outline-danger" href="{% url 'profile' %}">Cancel</a>
-          </div>
-        </form>
+      <div class="row">
+        <div class="col">
+          <label for="username" class="form-label">Username</label>
+          {{form.username}}
+        </div>
+        <div class="col">
+          <label for="last_name" class="form-label">Email</label>
+          {{form.email}}
+        </div>
       </div>
-    </section>
-  </article>
-</main>
+
+      <hr>
+      <div class="d-grid gap-3 d-md-block">
+        <button class="btn btn-outline-success" type="submit">Submit</button>
+        <button class="btn btn-outline-info" type="reset">Reset</button>
+        <a class="btn btn-outline-danger" href="{% url 'profile' %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -2,14 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from firstapp.models import Theme
 # Create your views here.
-
+@login_required
 def home(request):
-    if request.user.is_authenticated:
-        return render(request, 'home.html')
-    else:
-        messages.error(request, 'Please Provide the credentials to Login to your account.')
-        return redirect("login")
+    theme = theme_custom(request)
+    return render(request, 'home.html', {'color':theme})
 
 from .forms import SignUpForm, profile_edit
 def signup_view(request):
@@ -28,24 +26,21 @@ def signup_view(request):
 
 @login_required
 def profile(request):
-    if request.user.is_authenticated:
-        lst = User.objects.filter(username=request.user).values('id')
-        l=[]
-        for i in lst:
-            i['encrypt_key']=encrypt(i['id'])
-            i['id']=i['id']
-            l.append(i)
-        return render(request, 'profile/profile.html', {'lst':l})
-    else:
-        messages.error(request, 'Please Provide the credentials to Login to your account.')
-        return redirect("login")
+    theme = theme_custom(request)
+    lst = User.objects.filter(username=request.user).values('id')
+    l=[]
+    for i in lst:
+        i['encrypt_key']=encrypt(i['id'])
+        i['id']=i['id']
+        l.append(i)
+    return render(request, 'profile/profile.html', {'lst':l,'color':theme,})
 
 from django.shortcuts import redirect, render, get_object_or_404
 from firstapp.encryption_util import *
 @login_required
 def update(request,id):
     id=decrypt(id)
-
+    theme = theme_custom(request)
     context ={}
  
     # fetch the object related to passed id
@@ -61,10 +56,7 @@ def update(request,id):
             messages.success(request, 'Profile updated successfully!')
             return redirect('profile')
     
-        # add form dictionary to context
-        context["form"] = form
-    
-        return render(request, "profile/edit_profile.html", context)
+        return render(request, "profile/edit_profile.html", {'form':form,'color':theme,})
     else:
         messages.error(request,"You cannot access other user profile")
         return redirect("profile")
@@ -73,6 +65,7 @@ def update(request,id):
 from django.contrib.auth import logout
 @login_required
 def disable_user(request, id):
+    theme = theme_custom(request)
     # fetch the object related to passed id
     obj = get_object_or_404(User, id = request.user.id)
 
@@ -84,4 +77,40 @@ def disable_user(request, id):
         messages.success(request, 'Profile successfully disabled.')
         return redirect('login')
  
-    return render(request, "profile/disable_acc.html")\
+    return render(request, "profile/disable_acc.html", {'color':theme,})
+
+def theme_custom(request):
+    if Theme.objects.filter(user=request.user).exists():
+        color = Theme.objects.get(user=request.user).color
+    else:
+        color = 'light'
+    
+    return color 
+
+from django.urls import resolve
+from django.http import HttpResponseRedirect
+def theme(request):
+    color = request.GET.get('color')
+    current_url = resolve(request.path_info).url_name
+    # previous_url = self.request.META.get('HTTP_REFERER')
+    if color == 'dark':
+        if Theme.objects.filter(user=request.user).exists():
+            user_theme = Theme.objects.get(user=request.user)
+            user_theme.user = request.user
+            user_theme.color = 'dark'
+            user_theme.save()
+        else:
+            user2 = Theme(user=request.user, color='dark')
+            user2.save()
+
+    elif color == 'light':
+        if Theme.objects.filter(user=request.user).exists():
+            user_theme1 = Theme.objects.get(user=request.user)
+            user_theme1.user = request.user
+            user_theme1.color = 'light'
+            user_theme1.save()
+        else:
+            user4 = Theme(user=request.user, color='light')
+            user4.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
