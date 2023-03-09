@@ -27,6 +27,9 @@ Project is created with:
 5. A good and Mobile friendly User Interface.<br>
 6. Advanced UI and UX.<br>
 7. Theme Customizer.<br>
+8. Bulk Import & Export data.<br>
+9. Automation in creating profile.<br>
+10. Automatically Delete profile photos which are unused.
 
 ## Setup
 
