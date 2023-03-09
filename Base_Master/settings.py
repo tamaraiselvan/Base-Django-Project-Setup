@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'firstapp',
     # External pacakages
     'crispy_forms',
+    'import_export',
+    'django_cleanup.apps.CleanupConfig',
 ]
-
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
@@ -124,6 +126,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -162,7 +166,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Brand Name",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "logo.png",
+    "site_logo": "../static/login_styling/favicon.svg",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": None,
@@ -209,7 +213,7 @@ JAZZMIN_SETTINGS = {
     # Related Modal #
     #################
     # Use modals instead of popups
-    "related_modal_active": False,
+    "related_modal_active": True,
 
     #############
     # UI Tweaks #

@@ -11,3 +11,10 @@ class Theme(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_img = models.ImageField(upload_to="profile_img", default="profile_pic.png")
+    # add extra which all you want
+    def __str__(self):
+        return self.user.username

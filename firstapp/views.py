@@ -9,7 +9,7 @@ def home(request):
     theme = theme_custom(request)
     return render(request, 'home.html', {'color':theme})
 
-from .forms import SignUpForm, profile_edit
+from .forms import SignUpForm, User_edit, profile_edit
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -38,28 +38,26 @@ def profile(request):
 from django.shortcuts import redirect, render, get_object_or_404
 from firstapp.encryption_util import *
 @login_required
-def update(request,id):
-    id=decrypt(id)
+def profile_update(request):
     theme = theme_custom(request)
-    context ={}
- 
-    # fetch the object related to passed id
-    obj = get_object_or_404(User, id = id)
-    if request.user == obj:
-        # pass the object as instance in form
-        form = profile_edit(request.POST or None, instance = obj)
-    
-        # save the data from the form and
-        # redirect to detail_view
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile updated successfully!')
+    if request.method == 'POST':
+        u_form = User_edit(request.POST, instance=request.user)
+        p_form = profile_edit(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Profile updated successfully!')
             return redirect('profile')
-    
-        return render(request, "profile/edit_profile.html", {'form':form,'color':theme,})
     else:
-        messages.error(request,"You cannot access other user profile")
-        return redirect("profile")
+        u_form = User_edit(instance=request.user)
+        p_form = profile_edit(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
+        'color':theme,
+    }
+    return render(request, 'profile/edit_profile.html', context)
 
 # disable view for details
 from django.contrib.auth import logout

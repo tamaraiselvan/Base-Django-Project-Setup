@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path,include, re_path
 from django.contrib.auth.views import LoginView
 from firstapp import views
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
@@ -9,7 +11,7 @@ urlpatterns = [
     path('home', views.home, name="home"),
     path('register/', views.signup_view, name="sign_up"),
     path('profile/', views.profile, name="profile"),
-    path('update/<str:id>/', views.update, name="update"),
+    path('update/', views.profile_update, name="update"),
     path('disable/<str:id>/', views.disable_user, name="disable_user"),
     path('theme', views.theme, name="theme"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from firstapp.models import Profile
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Enter First name'}), required=True)
@@ -20,11 +21,17 @@ class SignUpForm(UserCreationForm):
             raise forms.ValidationError("This email is already exists.")
         return email
         
-class profile_edit(forms.ModelForm):
+class User_edit(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Enter First name'}), required=True)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Enter last name'}), required=True)
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': 'Enter Email address'}), required=True)
-    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Enter username'}), required=True)
     class Meta:
         model = User
-        fields=['username','email','first_name','last_name',]
+        fields=['email','first_name','last_name',]
+
+class profile_edit(forms.ModelForm):
+    profile_img = forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control', 'onchange':'preview()','id':'formFile'}))
+
+    class Meta:
+        model = Profile
+        fields=['profile_img']

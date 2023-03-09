@@ -12,7 +12,6 @@
   {% endfor %}
 {% endif %}
 
-
 <div class="card mb-3">
   <div class="card-header">
     <div class="container text-center">
@@ -26,13 +25,15 @@
             <ul class="dropdown-menu">
               <li>
                 {% for x in lst %}
-                <a class="dropdown-item" href="/update/{{x.encrypt_key}}"><i class="bi bi-pen"></i> Edit</a>
+                <a class="dropdown-item" href="{% url 'update' %}"><i class="bi bi-pen"></i> Edit Profile</a>
                 {% endfor %}
+              </li>
+              <li>
               </li>
               <li><a class="dropdown-item" onClick="document.location.reload(true)" href="#"><i class="bi bi-arrow-clockwise"></i> Refresh</a></li>
               <li>
                 {% for x in lst %}
-                <a class="dropdown-item" href="/disable/{{x.encrypt_key}}"><i class="bi bi-trash"></i> Deactivate</a>
+                <a class="dropdown-item" href="/disable/{{x.encrypt_key}}"><i class="bi bi-trash"></i> Deactivate Profile</a>
                 {% endfor %}
               </li>
             </ul>
@@ -42,10 +43,10 @@
     </div>
   </div>
   <div class="row g-2">
-    <div class="col-md-3">
-      <img src="{% static 'profile_pic.png' %}" class="img-fluid rounded-start" alt="profile picture" style="height: 15rem; width: auto;">
+    <div class="col-md-auto pt-2">
+      <img src="{{user.profile.profile_img.url}}" class="img-fluid rounded-start rounded mx-auto d-block" alt="profile picture" style="height: 15rem; width: auto;" data-bs-toggle="popover" data-bs-title="Edit Profile" data-bs-content="And here's some amazing content. It's very engaging. Right?">
     </div>
-    <div class="col-md-8">
+    <div class="col-md">
       <div class="card-body">
         <h5 class="card-title">{{user.get_full_name}}</h5>
         <p class="card-text">
@@ -58,7 +59,7 @@
           {% endif %}
         </p>
         <p class="card-text">
-          <b>Username: </b>{{user.username}} <br>
+          <b>Username: </b>{{user.username}}<br>
           <b>Email: </b>{{user.email}}
         </p>
         <p class="card-text"><small class="text-muted">{{user.date_joined}}</small></p>
