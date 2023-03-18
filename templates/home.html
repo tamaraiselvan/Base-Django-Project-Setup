@@ -2,14 +2,203 @@
 {% load static %}
 {% block pagetitle %}Home{% endblock %}
 {% block content %}
-  <main class="pt-3">
-    <article class="container article">
+<main class="pt-3">
+  <article class="container article">
+    <h2 class="h2 article-title">Hi {{user.get_full_name}} </h2>
+    <p class="article-subtitle">Welcome to Dashboard!</p>
 
-      <h2 class="h2 article-title">Hi {{user.get_full_name}} </h2>
+    <div class="row">
+      <div class="col-md-4 col-xl-3">
+        <div class="card bg-c-blue order-card">
+          <div class="card-block">
+            <h6 class="m-b-20">Orders Received</h6>
+            <h2 class="text-end"><i class="bi bi-cart-plus-fill f-left"></i><span>486</span></h2>
+            <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+          </div>
+        </div>
+      </div>
 
-      <p class="article-subtitle">Welcome to Dashboard!</p>
+      <div class="col-md-4 col-xl-3">
+        <div class="card bg-c-green order-card">
+          <div class="card-block">
+            <h6 class="m-b-20">Orders Completed</h6>
+            <h2 class="text-end"><i class="bi bi-rocket f-left"></i><span>486</span></h2>
+            <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+            <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="80" style="height: 5px" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: 80%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      </section>
-    </article>
-  </main>
+      <div class="col-md-4 col-xl-3">
+        <div class="card bg-c-yellow order-card">
+          <div class="card-block">
+            <h6 class="m-b-20">Orders Pending</h6>
+            <h2 class="text-end"><i class="bi bi-arrow-clockwise f-left"></i><span>486</span></h2>
+            <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+            <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="25" style="height: 5px" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: 25%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-xl-3">
+        <div class="card bg-c-pink order-card">
+          <div class="card-block">
+            <h6 class="m-b-20">Payments Processed</h6>
+            <h2 class="text-end"><i class="bi bi-credit-card f-left"></i><span>486</span></h2>
+            <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 ">
+        <div class="card border-top border-primary">
+          <h5 class="card-header">Recent Activity</h5>
+
+          <!-- Section: Timeline -->
+          <section class="card-body" style="height: 30vh; overflow-y: scroll;">
+            <ul class="timeline-with-icons">
+              {% for l in log %}
+              <li class="timeline-item mb-3">
+                <div class="card shadow">
+                  <span class="timeline-icon">
+                    {% if l.is_addition == True %}
+                    <i class="bi bi-plus-circle-fill"></i>
+                    {% elif l.is_change == True %}
+                    <i class="bi bi-pen-fill"></i>
+                    {% elif l.is_deletion == True %}
+                    <i class="bi bi-trash-fill"></i>
+                    {% endif %}
+                  </span>
+                  <h6 class="card-header">{{l.user}}<span class="text-muted" style="float: right;"><i class="bi bi-clock-fill"></i> {{l.action_time|timesince}}</span></h6>
+                  <div class="card-body">
+                    <p class="card-text">{{l.get_change_message}}</p>
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+              <li class="timeline-item mb-3">
+                <span class="timeline-icon">
+                  <i class="bi bi-clock-fill"></i>
+                </span>
+                <b class="text-muted">
+                  Started</b>
+              </li>
+            </ul>
+          </section>
+          <!-- Section: Timeline -->
+
+        </div> <!-- end card-->
+      </div> <!-- end col-->
+      <div class="col-sm-6">
+        <div class="card border-top border-primary card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional
+            content.</p>
+          <a href="javascript: void(0);" class="btn btn-primary">Go somewhere</a>
+        </div> <!-- end card-->
+      </div> <!-- end col-->
+    </div>
+
+    <div class="row pb-3">
+      <div class="col-sm-6 mb-3">
+        <canvas id="BarGraphChart"></canvas>
+      </div>
+      <div class="col-sm-6">
+        <canvas id="LineGraphChart"></canvas>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Position</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">John Doe</p>
+                  <p class="text-muted mb-0">john.doe@gmail.com</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">Software engineer</p>
+              <p class="text-muted mb-0">IT department</p>
+            </td>
+            <td>
+              <span class="badge rounded-pill text-bg-success">Active</span>
+            </td>
+            <td>Senior</td>
+            <td>
+              <a href="#"><i class="bi bi-pen-fill"></i></a>
+              <a href="#"><i class="bi bi-trash-fill"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt="" style="width: 45px; height: 45px" />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">Alex Ray</p>
+                  <p class="text-muted mb-0">alex.ray@gmail.com</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">Consultant</p>
+              <p class="text-muted mb-0">Finance</p>
+            </td>
+            <td>
+              <span class="badge rounded-pill text-bg-primary">Onboarding</span>
+            </td>
+            <td>Junior</td>
+            <td>
+              <a href="#"><i class="bi bi-pen-fill"></i></a>
+              <a href="#"><i class="bi bi-trash-fill"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt="" style="width: 45px; height: 45px" />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">Kate Hunington</p>
+                  <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">Designer</p>
+              <p class="text-muted mb-0">UI/UX</p>
+            </td>
+            <td>
+              <span class="badge rounded-pill text-bg-warning">Awaiting</span>
+            </td>
+            <td>Senior</td>
+            <td>
+              <a href="#"><i class="bi bi-pen-fill"></i></a>
+              <a href="#"><i class="bi bi-trash-fill"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </article>
+</main>
 {% endblock %}

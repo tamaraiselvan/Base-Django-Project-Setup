@@ -1,13 +1,15 @@
+<!-- Edited -->
 {% extends 'base.html' %}
 {% block pagetitle %}Profile{% endblock %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
-<div class="card">
+<div class="card border-top border-primary">
   <div class="card-header fw-bold">
     Update Profile
   </div>
   <div class="card-body">
-    <form class="row g-3" method="post" enctype="multipart/form-data">
+    <form class="row g-3" method="post" enctype="multipart/form-data" onsubmit="setFormSubmitting()">
       {% csrf_token %}
       <div class="col-md-6">
         <label for="Image" class="form-label fw-bold">Current Image </label>
@@ -48,4 +50,21 @@
     </form>
   </div>
 </div>
+<script>
+  var formSubmitting = false;
+  var setFormSubmitting = function() {
+    formSubmitting = true;
+  };
+  window.onload = function() {
+    window.addEventListener("beforeunload", function(e) {
+      if (formSubmitting) {
+        return undefined;
+      }
+      var confirmationMessage = 'It looks like you have been editing something. ' +
+        'If you leave before saving, your changes will be lost.';
+      (e || window.event).returnValue = confirmationMessage;
+      return confirmationMessage;
+    });
+  };
+</script>
 {% endblock %}

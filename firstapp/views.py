@@ -3,11 +3,13 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from firstapp.models import Theme
+from django.contrib.admin.models import LogEntry
 # Create your views here.
 @login_required
 def home(request):
     theme = theme_custom(request)
-    return render(request, 'home.html', {'color':theme})
+    logs = LogEntry.objects.filter(user_id=request.user.id)
+    return render(request, 'home.html', {'color':theme,'log':logs,})
 
 from .forms import SignUpForm, User_edit, profile_edit
 def signup_view(request):
@@ -59,7 +61,7 @@ def profile_update(request):
     }
     return render(request, 'profile/edit_profile.html', context)
 
-# disable view for details
+
 from django.contrib.auth import logout
 @login_required
 def disable_user(request, id):
@@ -82,7 +84,6 @@ def theme_custom(request):
         color = Theme.objects.get(user=request.user).color
     else:
         color = 'light'
-    
     return color 
 
 from django.urls import resolve
@@ -90,7 +91,6 @@ from django.http import HttpResponseRedirect
 def theme(request):
     color = request.GET.get('color')
     current_url = resolve(request.path_info).url_name
-    # previous_url = self.request.META.get('HTTP_REFERER')
     if color == 'dark':
         if Theme.objects.filter(user=request.user).exists():
             user_theme = Theme.objects.get(user=request.user)
