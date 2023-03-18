@@ -9,3 +9,7 @@ admin.site.unregister(Group)
 admin.site.register(Group, ImportExportModelAdmin)
 admin.site.register(Theme)
 admin.site.register(Profile)
+
+# Add import export model mixin to the model while registering the model in admin.py
+# Example:
+# admin.site.register(Theme, ImportExportModelAdmin)

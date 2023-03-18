@@ -5,12 +5,15 @@ from django.contrib.auth.decorators import login_required
 from firstapp.models import Theme
 from django.contrib.admin.models import LogEntry
 # Create your views here.
+
+## Home page view
 @login_required
 def home(request):
     theme = theme_custom(request)
-    logs = LogEntry.objects.filter(user_id=request.user.id)
+    logs = LogEntry.objects.filter(user_id=request.user.id) ## This retrives the Log entry of the User
     return render(request, 'home.html', {'color':theme,'log':logs,})
 
+### User Registration view
 from .forms import SignUpForm, User_edit, profile_edit
 def signup_view(request):
     if request.method == 'POST':
@@ -26,19 +29,21 @@ def signup_view(request):
         form = SignUpForm()
     return render(request, 'registration/registration.html', {'form': form})
 
+### user Profile view
+from firstapp.encryption_util import *
 @login_required
 def profile(request):
     theme = theme_custom(request)
     lst = User.objects.filter(username=request.user).values('id')
     l=[]
-    for i in lst:
+    for i in lst: ## This will encrypt the Url for each User, So that the sensitive information is secure
         i['encrypt_key']=encrypt(i['id'])
         i['id']=i['id']
         l.append(i)
     return render(request, 'profile/profile.html', {'lst':l,'color':theme,})
 
+# Profile Update view
 from django.shortcuts import redirect, render, get_object_or_404
-from firstapp.encryption_util import *
 @login_required
 def profile_update(request):
     theme = theme_custom(request)
@@ -61,7 +66,7 @@ def profile_update(request):
     }
     return render(request, 'profile/edit_profile.html', context)
 
-
+### Disable User view
 from django.contrib.auth import logout
 @login_required
 def disable_user(request, id):

@@ -29,7 +29,8 @@ Project is created with:
 7. Theme Customizer.<br>
 8. Bulk Import & Export data.<br>
 9. Automation in creating profile.<br>
-10. Automatically Delete profile photos which are unused.
+10. Automatically Delete files/images from media which are unused.<br>
+11. Highly documented with appropriate comment lines for easy understading of the code.
 
 ## Setup
 

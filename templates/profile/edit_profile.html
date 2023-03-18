@@ -28,7 +28,7 @@
       <div class="col-md-6">
         <label for="Image" class="form-label fw-bold">Upload Image</label>
         {{ p_form.profile_img }}
-        <img src="" style="height: 9rem; width: auto;" class="img-fluid pt-3" id="frame">
+        <img src="" style="height: 9rem; width: auto;" class="img-fluid pt-3" id="frame"> <!--This is the preview image -->
       </div>
       <div class="col-md-12">
         <label for="email" class="form-label">Email Address</label>
@@ -51,6 +51,7 @@
   </div>
 </div>
 <script>
+  // This code is used to throw an alert to the user when he is leaving the page, once made a change in the form
   var formSubmitting = false;
   var setFormSubmitting = function() {
     formSubmitting = true;
@@ -60,6 +61,7 @@
       if (formSubmitting) {
         return undefined;
       }
+      // This is the alert message
       var confirmationMessage = 'It looks like you have been editing something. ' +
         'If you leave before saving, your changes will be lost.';
       (e || window.event).returnValue = confirmationMessage;

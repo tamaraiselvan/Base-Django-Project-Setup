@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path,include, re_path
+from django.urls import path,include
 from django.contrib.auth.views import LoginView
 from firstapp import views
 from django.conf import settings

@@ -15,13 +15,13 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-k6k-x^q$jjp*@bs#_7yw-!&cyn4g^byvr*lseiok=h=t#!)bw4'
 ENCRYPT_KEY = b'Py6zhVP-eFxkfq0kHUN0ZmIePwwaOeQ12ZmrFAVLbI8='
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    'jazzmin', #Package used to customize the Django Admin Panel
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'import_export',
     'django_cleanup.apps.CleanupConfig',
 ]
-IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_USE_TRANSACTIONS = True #Mandatory for Transactions perfomred with import_export package
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
@@ -126,6 +126,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# Media Files (Images, Files...), This files are stored with associate with databse
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -134,13 +136,14 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+###### Message Rendering tags ######
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
 }
 
 #### Email Intergration ###
@@ -151,8 +154,8 @@ EMAIL_HOST_USER = 'Email Id' #You should type your Email address
 EMAIL_HOST_PASSWORD = 'password' #You should type your Email password
 EMAIL_USE_TLS = True
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'home' #this Url is used to redirect Users after login
+LOGOUT_REDIRECT_URL = 'login' #this Url is used to redirect Users after logout
 
 ######################  ADMIN DASHBOARD OVERWRITE  ######################
 JAZZMIN_SETTINGS = {

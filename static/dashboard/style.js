@@ -1,3 +1,4 @@
+// This is the first bar grpah chart
 const BarGraph = document.getElementById("BarGraphChart");
 new Chart(BarGraph, {
   type: "bar",
@@ -20,6 +21,7 @@ new Chart(BarGraph, {
   }
 });
 
+// This is the Line graph chart
 const LineGraph = document.getElementById("LineGraphChart");
 new Chart(LineGraph, {
   type: "line",
@@ -55,14 +57,17 @@ new Chart(LineGraph, {
   }
 });
 
-
+// This line of code used to enable tooltips in Bootstrap
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+
+// These two functions are used to show preview of the image uploaded in image feild
 function preview() {
   frame.src = URL.createObjectURL(event.target.files[0]);
 }
 
+// This founction refresh the preview if the image is changed in the image feild
 function clearImage() {
   document.getElementById('formFile').value = null;
   frame.src = "";
