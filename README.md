@@ -3,6 +3,7 @@
 ![GitHub repo size](https://img.shields.io/github/license/tamaraiselvan/Base-django-project-Setup)
 
 ## Table of contents
+
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Features](#features)
@@ -10,25 +11,28 @@
 * [License](#license)
 
 ## General info
+
 This Repository has the basic setup of a Django Project. Since setting and configuring a basic setup of a project by using Django is difficult. You can clone this repository for your project, and you can use it for your projects. This Repository is developed with a simplified coding style and file structure.
 
 
 ## Technologies
+
 Project is created with:
 * Bootstrap 5.3
 * Python 3.10
 * Django 4.0.4
 
 ## Features
+
 1. Authentication, Authorization. <br>
 2. Overwritten Django admin module. <br>
 3. Login and Sign up and Logout.<br>
-4. A Dashboard and Advanced Navigation system.<br>
+4. A Dashboard and basic Navigation system.<br>
 5. A good and Mobile friendly User Interface.<br>
-6. Advanced UI and UX.<br>
+6. Basic UI and UX.<br>
 7. Theme Customizer.<br>
 8. Bulk Import & Export data.<br>
-9. Automation in creating profile.<br>
+9. Automation in Profile creation.<br>
 10. Automatically Delete files/images from media which are unused.<br>
 11. Highly documented with appropriate comment lines for easy understading of the code.
 
@@ -70,5 +74,6 @@ Follow these steps to make the project run locally:
    ```
    
 ## License
+
 Licensed under the MIT License.
 Copyright © 2022 TS Tamarai Selvan [Copy of the license](LICENSE).
