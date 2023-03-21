@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # External pacakages
     'crispy_forms',
     'import_export',
+    'social_django',
     'django_cleanup.apps.CleanupConfig',
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True #Mandatory for Transactions perfomred with import_export package
@@ -153,6 +154,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'Email Id' #You should type your Email address
 EMAIL_HOST_PASSWORD = 'password' #You should type your Email password
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@company.com>'
 
 LOGIN_REDIRECT_URL = 'home' #this Url is used to redirect Users after login
 LOGOUT_REDIRECT_URL = 'login' #this Url is used to redirect Users after logout
@@ -240,3 +242,37 @@ JAZZMIN_SETTINGS = {
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
 }
+
+## Social Authentication Configuration
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2', ## Google Authentication
+    'social_core.backends.github.GithubOAuth2', ## Github Authentication
+    'django.contrib.auth.backends.ModelBackend', ## Normal Username & Password Authentication
+)
+
+## Google Authentication Keys
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'xxxxxxxxxxxxxxxxxxxxx'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xxxxxxxxxxxxxxxxl'
+
+## Github Authetication Keys
+SOCIAL_AUTH_GITHUB_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxx'
+SOCIAL_AUTH_GITHUB_SECRET = 'xxxxxxxxxxxxxxxxxxxxx'
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email','user.user','user:profile_name']
+
+## Social Authentication Features.
+## Remove from pipeline, if you want to remove any feature.
+
+## Example: If you dont want user to be created automatically, if the user is not there in database.
+## Remove 'social_core.pipeline.user.create_user', from the pipeline. Then it wont create users if user not exist.
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)

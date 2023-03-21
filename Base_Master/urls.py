@@ -14,4 +14,5 @@ urlpatterns = [
     path('update/', views.profile_update, name="update"),
     path('disable/<str:id>/', views.disable_user, name="disable_user"),
     path('theme', views.theme, name="theme"),
+    path('social-auth/', include('social_django.urls', namespace='social')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

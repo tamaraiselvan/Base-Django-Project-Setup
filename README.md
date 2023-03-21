@@ -64,16 +64,32 @@ Follow these steps to make the project run locally:
    ```sh
    python manage.py createsuperuser
    ```
-7. Run the server locally on your system.
+7. Configurations on <b>settings.py</b> file
+
+   <b>Step 1:</b> Go to your Gmail and create an App.<br>
+   [Click Here ](https://github.com/tamaraiselvan/Base-django-project-Setup/wiki/Email-Configuration.) to Refer the Documentation for the configuration.<br><br>
+   <b>Step 2:</b> Go to Google could platform. Create an OAuth app.<br>
+   [Click Here ](https://github.com/tamaraiselvan/Base-django-project-Setup/wiki/Google-Oauth-Configuration.) to Refer the Documentation for the configuration.
+   <br><br>
+   <b>Step 3:</b> Go to Github. Create an OAuth app.<br>
+   [Click Here ](https://github.com/tamaraiselvan/Base-django-project-Setup/wiki/GitHub-OAuth-Configuration.) to Refer the Documentation for the configuration.
+
+8. Run the server locally on your system.
    ```sh
    python manage.py runserver
    ```
-8. Open your browser and type.
+9. Open your browser and type.
    ```sh
-   http://127.0.0.1:8000/
+   http://localhost:8000/
    ```
+   Note: Only on the localhost Social Authentication will work.
    
+## Sponsor to TS Tamarai Selvan
+[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/tamaraiselvan)
+
 ## License
 
 Licensed under the MIT License.
 Copyright © 2022 TS Tamarai Selvan [Copy of the license](LICENSE).
+
+
