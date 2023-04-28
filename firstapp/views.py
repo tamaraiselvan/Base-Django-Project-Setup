@@ -23,8 +23,6 @@ def signup_view(request):
             form.save()
             messages.success(request, 'Your account has been created ! You are now able to log in')
             return redirect('login')
-        else: 
-            messages.error(request, 'Please Provide the appropriate credentials to create your account.')
     else:
         form = SignUpForm()
     return render(request, 'registration/registration.html', {'form': form})

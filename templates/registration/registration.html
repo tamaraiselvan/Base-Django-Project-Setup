@@ -19,6 +19,18 @@
           <p>{{message}}</p>{% endfor %}
         </div>
         {% endif %}
+        {% if form.errors %}
+        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {% for field in form %}
+          {% if field.errors %}
+          <li type="1">{{ field.label }}: {{ field.errors|striptags }}</li>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
         <form action="{% url 'sign_up' %}" method="POST">
           {% csrf_token %}
           <div class="row">
