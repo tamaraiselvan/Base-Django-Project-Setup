@@ -56,11 +56,21 @@
           <div class="row">
             <div class=" col form-group mb-4">
               <label for="password1">Password</label>
-              {{form.password1}}
+              <div class="input-group" id="show_hide_password">
+                {{form.password1}}
+                <span class="input-group-text" id="password1-visible">
+                  <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                </span>
+              </div>
             </div>
             <div class="col form-group">
               <label for="password2">Re-type Password</label>
-              {{form.password2}}
+              <div class="input-group" id="show_reenter_password">
+                {{form.password2}}
+                <span class="input-group-text" id="reenter-password-visible">
+                  <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                </span>
+              </div>
             </div>
           </div>
           <button class="btn btn-outline-primary btn-block btn-lg" type="submit" name="Register" id="Register">Register</button>

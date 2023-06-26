@@ -27,6 +27,34 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#show_hide_password a").on('click', function(event) {
+          event.preventDefault();
+          if($('#show_hide_password input').attr("type") == "text"){
+              $('#show_hide_password input').attr('type', 'password');
+              $('#show_hide_password i').addClass( "fa-eye-slash" );
+              $('#show_hide_password i').removeClass( "fa-eye" );
+          }else if($('#show_hide_password input').attr("type") == "password"){
+              $('#show_hide_password input').attr('type', 'text');
+              $('#show_hide_password i').removeClass( "fa-eye-slash" );
+              $('#show_hide_password i').addClass( "fa-eye" );
+          }
+      });
+      $("#show_reenter_password a").on('click', function(event) {
+          event.preventDefault();
+          if($('#show_reenter_password input').attr("type") == "text"){
+              $('#show_reenter_password input').attr('type', 'password');
+              $('#show_reenter_password i').addClass( "fa-eye-slash" );
+              $('#show_reenter_password i').removeClass( "fa-eye" );
+          }else if($('#show_reenter_password input').attr("type") == "password"){
+              $('#show_reenter_password input').attr('type', 'text');
+              $('#show_reenter_password i').removeClass( "fa-eye-slash" );
+              $('#show_reenter_password i').addClass( "fa-eye" );
+          }
+      });
+    });
+  </script>
 </body>
 
 </html>
