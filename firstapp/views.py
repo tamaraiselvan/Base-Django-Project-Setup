@@ -115,3 +115,6 @@ def theme(request):
             user4.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def ui_elements(request):
+    return render(request, 'UI/ui_elements.html')

@@ -11,6 +11,7 @@ urlpatterns = [
     path('home', views.home, name="home"),
     path('register/', views.signup_view, name="sign_up"),
     path('profile/', views.profile, name="profile"),
+    path('ui-elements/', views.ui_elements, name="ui_elements"),
     path('update/', views.profile_update, name="update"),
     path('disable/<str:id>/', views.disable_user, name="disable_user"),
     path('theme', views.theme, name="theme"),
